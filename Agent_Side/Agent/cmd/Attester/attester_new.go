@@ -137,9 +137,9 @@ func Attest(verbose bool) int {
 
 			if r.Method == http.MethodGet {
 
-				// Rispondi con lo stato OK
-				w.WriteHeader(http.StatusOK) // Imposta il codice di stato 200 OK
-				fmt.Fprintf(w, "Server disponibile!")
+				// Respond with OK status
+				w.WriteHeader(http.StatusOK) // Set status code to 200 OK
+				fmt.Fprintf(w, "Server available!")
 
 			} else if r.Method == http.MethodPost {
 

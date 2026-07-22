@@ -323,18 +323,18 @@ func Register(print bool, verbose bool) int {
 			log.Fatal(err)
 		}
 
-		// Aggiungi gli header personalizzati
+		// Add custom headers
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("X-Forwarded-For", "192.168.0.103")
 		//req.Header.Set("Connection", "close")
-		// Crea un client HTTP
+		// Create an HTTP client
 		client := &http.Client{Transport: &http.Transport{
-			// Forza HTTP/1.0
+			// Force HTTP/1.0
 			ForceAttemptHTTP2: false,
 		},
 		}
 
-		// Invia la richiesta
+		// Send the request
 		resp, err = client.Do(req)
 		if err != nil {
 			log.Fatal(err)
@@ -568,14 +568,14 @@ func Register(print bool, verbose bool) int {
 				log.Fatal(err)
 			}
 
-			// Aggiungi gli header personalizzati
+			// Add custom headers
 			req.Header.Set("Content-Type", "application/json")
 			req.Header.Set("X-Forwarded-For", "192.168.0.103")
 
-			// Crea un client HTTP
+			// Create an HTTP client
 			client := &http.Client{}
 
-			// Invia la richiesta
+			// Send the request
 			resp, err = client.Do(req)
 			if err != nil {
 				log.Fatal(err)
@@ -620,7 +620,7 @@ func Register(print bool, verbose bool) int {
 			defer cancel()
 
 			if err := server.Shutdown(ctx); err != nil {
-				fmt.Printf("Errore durante la chiusura del server: %v\n", err)
+				fmt.Printf("Error closing server: %v\n", err)
 				return
 			}
 

@@ -46,7 +46,7 @@ func InitializeAgentDatabase(configurationR cR.Configurations) error {
 	grantSelectSQL := fmt.Sprintf("GRANT SELECT ON TABLE agents TO %s;", configurationR.PostgresDatabase.DBUserVerifier)
 	//grantSelectSQL := fmt.Sprintf("GRANT SELECT ON ALL TABLES IN SCHEMA agents TO %s;", configurationR.PostgresDatabase.DBUserVerifier)
 
-	// Esecuzione dei comandi SQL
+	// Execution of SQL commands
 	_, err = db.Exec(createUserSQL)
 	if err != nil {
 		log.Fatal("Error creating user: ", err)

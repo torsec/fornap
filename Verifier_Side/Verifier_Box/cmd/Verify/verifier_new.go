@@ -121,12 +121,12 @@ func Verify(verbose bool) int {
 			for {
 				err := pingAPI(url)
 				if err != nil {
-					//fmt.Println("Errore:", err)
-					//fmt.Println("Riprovo fra 3 secondi...")
-					time.Sleep(3 * time.Second) // Aspetta 5 secondi prima di riprovare
+					//fmt.Println("Error:", err)
+					//fmt.Println("Retrying in 3 seconds...")
+					time.Sleep(3 * time.Second) // Wait 3 seconds before retrying
 				} else {
-					//fmt.Println("API disponibile! Connessione riuscita.")
-					break // Esce dal ciclo se l'API è disponibile
+					//fmt.Println("API available! Connection successful.")
+					break // Exit loop if the API is available
 				}
 			}
 		}
@@ -278,19 +278,19 @@ func Verify(verbose bool) int {
 
 			var doc map[string]interface{}
 			if err := bson.Unmarshal(elem.Value().Value, &doc); err != nil {
-				fmt.Println("Errore durante la decodifica:", err)
+				fmt.Println("Error during decoding:", err)
 				continue
 			}
 
 			val, ok := doc["val"].(map[string]interface{})
 			if !ok {
-				fmt.Println("Campo 'val' non trovato o formato errato")
+				fmt.Println("Field 'val' not found or invalid format")
 				continue
 			}
 
 			digests, ok := val["digests"].(bson.A)
 			if !ok {
-				fmt.Println("Campo 'digests' non trovato o formato errato")
+				fmt.Println("Field 'digests' not found or invalid format")
 				continue
 			}
 
@@ -528,19 +528,19 @@ func Verify(verbose bool) int {
 }
 
 func pingAPI(url string) error {
-	// Esegui una richiesta GET
+	// Perform a GET request
 	resp, err := http.Get(url)
 	if err != nil {
-		return err // Se c'è un errore, il server non è disponibile
+		return err // If there is an error, the server is not available
 	}
 	defer resp.Body.Close()
 
-	// Controlla se la risposta HTTP è OK (status 200)
+	// Check if the HTTP response is OK (status 200)
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("server non disponibile: %d", resp.StatusCode)
+		return fmt.Errorf("server not available: %d", resp.StatusCode)
 	}
 
-	return nil // La richiesta è andata a buon fine
+	return nil // Request succeeded
 }
 
 type AgentNet struct {

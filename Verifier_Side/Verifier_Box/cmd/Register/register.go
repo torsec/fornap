@@ -678,7 +678,7 @@ func Register(verbose bool) int {
 			// Don't forget to close the connection:
 			conn.Write([]byte("HTTP/1.0 200 OK\r\n"))
 			conn.Write([]byte("Content-Type: application/json\r\n"))
-			conn.Write([]byte("\r\n")) // Indica la fine degli header HTTP
+			conn.Write([]byte("\r\n")) // Indicates the end of HTTP headers
 			conn.Write([]byte(id.String()))
 			conn.Close()
 
@@ -769,7 +769,7 @@ func Register(verbose bool) int {
 			return
 		}
 
-		// Decodifica il corpo JSON in una struttura Go
+		// Decode the JSON body into a Go struct
 		var arUpdate AttestationResultUpdate
 		err = json.Unmarshal(body, &arUpdate)
 		if err != nil {

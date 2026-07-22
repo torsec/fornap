@@ -1,5 +1,5 @@
 # Verifier
-installare docker, documentazione al link seguente https://docs.docker.com/engine/install/
-aprire un terminale nella cartella "Verifier_Box" 
-settare la modalità in cui dare inizio alle fasi di registrazione e attestazione tramite i file "config.yml" presenti nelle cartelle configR e configV (rispettivamente per Register e Verifier) tramite le variabili "startregistration" e "startattestation"
-eseguire il programma tramite il comando "sudo docker compose up --build"
+install docker, documentation at the following link https://docs.docker.com/engine/install/
+open a terminal in the "Verifier_Box" folder
+set the mode to start the registration and attestation phases via the "config.yml" files present in the configR and configV folders (for Register and Verifier respectively) using the variables "startregistration" and "startattestation"
+run the program using the command "sudo docker compose up --build"
