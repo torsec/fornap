@@ -1,0 +1,16 @@
+services:
+  agent:
+    user: root
+    container_name: agent
+    image: agent
+    network_mode: host
+    build:
+      dockerfile: Dockerfile
+      network: host
+    devices:
+      - /dev/tpm0:/dev/tpm0
+    volumes:
+      - type: bind
+        source: /sys
+        target: /sys
+    privileged: true

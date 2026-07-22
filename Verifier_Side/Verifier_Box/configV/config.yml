@@ -1,0 +1,40 @@
+startattestation:
+    port: 8082
+    start: false
+
+mongodb:
+    mongouser: verifieruser
+    mongopassword: password_ro
+#    mongourl: cluster0.9ajkk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    mongoip: 172.20.0.5
+    mongoport: 27017
+
+postgresdatabase:
+    dbname: attestationdb
+    dbpassword: password_ro
+    dbuser: verifieruser
+
+postgreserver:
+    ip: 172.20.0.4
+    port: 5432
+
+registernet:
+    ip: 172.20.0.2
+    port: 8080
+
+verifiernet:
+    ip: 172.20.0.3
+    port: 8081
+
+createjwtkeys:
+    create: true
+
+jwtkeypath:
+    verifierpath: verify_ecdsa_private_key.pem
+
+verifieridentity:
+    build: verifier
+    developer: thesis OU
+
+attestationperiod:
+    seconds: 5

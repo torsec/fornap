@@ -1,0 +1,20 @@
+FROM golang:1.23-alpine AS builder
+
+WORKDIR /verifier
+
+COPY go.mod ./
+COPY go.sum ./
+COPY cmd /verifier/cmd
+COPY configR /verifier/configR
+COPY configV /verifier/configV
+RUN go mod download 
+COPY main.go ./
+RUN go build 
+
+FROM debian:bookworm-slim
+
+WORKDIR /verifier
+
+COPY --from=builder /verifier .
+
+CMD [ "./verifier", "verify" ]

@@ -1,0 +1,29 @@
+agentnet:
+  ip: 192.168.0.103
+  registerport: 8081
+  attesterport: 8082
+
+registernet:
+  ip: 192.168.0.122
+  port: 8080
+
+waitregister:
+  wait: false
+
+keytemplates:
+  ektemplate: RSADefaultEKTemplate    # other possible value ECCDefaultEKTemplate
+  srktemplate: RSADefaultSRKTemplate  # other possible value ECCDefaultSRKTemplate
+  aktemplate: ECCDefaultAKTemplate    # other possible value RSASSADefaultAKTemplate, RSAPSSDefaultAKTemplate, ECCDefaultAKTemplate
+
+whitelistid:
+  id: f13ceb44-5de7-4e25-ac72-975253823048
+
+verifiernet:
+  ip: 192.168.0.122
+  port: 8081
+
+waitverifier:
+  wait: false
+
+attestationperiod:
+  seconds: 5

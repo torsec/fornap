@@ -1,0 +1,91 @@
+services:
+  db:
+    container_name: agents_db
+    restart: always
+    image: postgres:17
+    environment:
+      POSTGRES_USER: registeruser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: attestationdb
+    networks:
+      priv_net:
+        ipv4_address: 172.20.0.4
+    ports:
+     - "5430:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-V"]
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 5s
+
+  mongodb:
+    image: mongo:8.0.4
+    hostname: mongo
+    container_name: mongo
+    command: ["mongod", "--logpath", "/dev/null", "--quiet"]
+    networks:
+      priv_net:
+        ipv4_address: 172.20.0.5
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=register
+      - MONGO_INITDB_ROOT_PASSWORD=papasswordord
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand('ping')"]
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 5s
+  
+  register:
+    container_name: register
+    restart: on-failure
+    build:
+      # Correct the path to your Dockerfile
+      dockerfile: DockerfileR
+    networks:
+      priv_net:
+        ipv4_address: 172.20.0.2
+    #expose: 
+     # - 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+
+  verifier:
+    container_name: verifier
+    restart: on-failure
+    build:
+      # Correct the path to your Dockerfile
+      dockerfile: DockerfileV
+    networks:
+      priv_net:
+        ipv4_address: 172.20.0.3
+    ports:
+      - "8081:8081"
+    #expose: 
+     # - 8081
+    depends_on:
+      mongodb:
+        condition: service_healthy      
+      db:
+        condition: service_healthy
+    
+networks:
+  priv_net:
+    driver: bridge
+    #external: true
+    #driver_opts:
+     # com.docker.network.bridge.gateway_mode_ipv4: 'routed'
+     # com.docker.network.bridge.enable_ip_masquerade: 'false'
+    ipam: 
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+        #  gateaway: "172.20.0.1"
